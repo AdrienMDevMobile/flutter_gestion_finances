@@ -1,9 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_counter/app.dart';
-import 'package:flutter_counter/counter_observer.dart';
+import 'package:flutter_gestion_finances/app.dart';
 
 void main() {
-  Bloc.observer = const SpendingObserver();
   runApp(const SpendingApp());
 }
