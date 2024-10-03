@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gestion_finances/spendings/spendings.dart';
+import 'package:flutter_gestion_finances/spendings/view/spending_view_state.dart';
 
 class SpendingView extends StatelessWidget {
   /// {@macro counter_view}
@@ -11,13 +12,13 @@ class SpendingView extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: Center(
-        child: BlocBuilder<SpendingCubit, List<int>>(
+        child: BlocBuilder<SpendingCubit, SpendingViewState>(
           builder: (context, state) {
-            return state.isEmpty
+            return state.spendings.isEmpty
                 ? Center(child: Text('Empty'))
                 : ListView.builder(
-                    itemCount: state.length,
-                    itemBuilder: (_, index) => Text('${state[index]}',
+                    itemCount: state.spendings.length,
+                    itemBuilder: (_, index) => Text('${state.spendings[index]}',
                         style: textTheme.displayMedium));
           },
         ),
