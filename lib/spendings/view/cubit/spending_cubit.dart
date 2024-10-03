@@ -1,6 +1,6 @@
 //La classe observée
 import 'package:bloc/bloc.dart';
-import 'package:flutter_gestion_finances/spendings/view/spending_view_state.dart';
+import 'package:flutter_gestion_finances/spendings/view/cubit/spending_view_state.dart';
 
 class SpendingCubit extends Cubit<SpendingViewState> {
   SpendingCubit()
