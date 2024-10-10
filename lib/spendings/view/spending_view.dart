@@ -30,34 +30,30 @@ class SpendingView extends StatelessWidget {
           Container(
             height: 100,
             color: Colors.blue,
-            child: const Row(
+            child: Row(
               children: [
-                Flexible(
-                    flex: 1,
+                const SizedBox(width: 8),
+                const Flexible(
+                    flex: 10,
                     child: TextField(
                         decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Spending',
-                    )))
+                    ))),
+                const SizedBox(width: 8),
+                Flexible(
+                    flex: 1,
+                    child: OutlinedButton(
+                      onPressed: () => context.read<SpendingCubit>().add(1),
+                      child: const Icon(Icons.add),
+                    )),
+                const SizedBox(height: 8),
                 /*
                 )*/
               ],
             ),
           )
         ]),
-      ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[Ò
-          //EditableTextÒ(controller: controller, focusNode: focusNode, style: style, cursorColor: cursorColor, backgroundCursorColor: backgroundCursorColor)
-          const SizedBox(height: 8),
-          FloatingActionButton(
-            key: const Key('counterView_decrement_floatingActionButton'),
-            child: const Icon(Icons.remove),
-            onPressed: () => context.read<SpendingCubit>().add(1),
-          ),
-        ],
       ),
     );
   }
