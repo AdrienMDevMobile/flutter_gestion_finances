@@ -18,11 +18,11 @@ class SpendingView extends StatelessWidget {
             child: BlocBuilder<SpendingCubit, SpendingViewState>(
               builder: (context, state) {
                 return state.spendings.isEmpty
-                    ? Center(child: Text('Empty'))
+                    ? const Center(child: Text('Empty'))
                     : ListView.builder(
                         itemCount: state.spendings.length,
                         itemBuilder: (_, index) => Text(
-                            '${state.spendings[index]}',
+                            '${state.spendings[index].name} ${state.spendings[index].value}',
                             style: textTheme.displayMedium));
               },
             ),
@@ -34,22 +34,32 @@ class SpendingView extends StatelessWidget {
               children: [
                 const SizedBox(width: 8),
                 const Flexible(
-                    flex: 10,
+                    flex: 6,
                     child: TextField(
                         decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Spending',
                     ))),
                 const SizedBox(width: 8),
+                const Flexible(
+                    flex: 6,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Value',
+                      ),
+                      keyboardType: TextInputType.number,
+                    )),
+                //TODO variables de traduction
+                const SizedBox(width: 8),
                 Flexible(
                     flex: 1,
                     child: OutlinedButton(
-                      onPressed: () => context.read<SpendingCubit>().add(1),
+                      onPressed: () =>
+                          context.read<SpendingCubit>().add(1, "test"),
                       child: const Icon(Icons.add),
                     )),
                 const SizedBox(height: 8),
-                /*
-                )*/
               ],
             ),
           )

@@ -1,5 +1,7 @@
+import '../../data/spending.dart';
+
 class SpendingViewState {
-  List<int> spendings;
+  List<Spending> spendings;
 
   SpendingViewState({required this.spendings});
 }
