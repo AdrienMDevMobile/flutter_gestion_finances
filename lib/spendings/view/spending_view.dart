@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gestion_finances/spendings/spendings.dart';
 
 import 'cubit/spending_view_state.dart';
+import 'spending_create_bar.dart';
 
 class SpendingView extends StatelessWidget {
   /// {@macro counter_view}
@@ -27,42 +28,7 @@ class SpendingView extends StatelessWidget {
               },
             ),
           ),
-          Container(
-            height: 100,
-            color: Colors.blue,
-            child: Row(
-              children: [
-                const SizedBox(width: 8),
-                const Flexible(
-                    flex: 6,
-                    child: TextField(
-                        decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Spending',
-                    ))),
-                const SizedBox(width: 8),
-                const Flexible(
-                    flex: 6,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Value',
-                      ),
-                      keyboardType: TextInputType.number,
-                    )),
-                //TODO variables de traduction
-                const SizedBox(width: 8),
-                Flexible(
-                    flex: 1,
-                    child: OutlinedButton(
-                      onPressed: () =>
-                          context.read<SpendingCubit>().add(1, "test"),
-                      child: const Icon(Icons.add),
-                    )),
-                const SizedBox(height: 8),
-              ],
-            ),
-          )
+          const SpendingCreateBar()
         ]),
       ),
     );
