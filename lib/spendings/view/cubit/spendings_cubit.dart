@@ -2,10 +2,10 @@
 import 'package:bloc/bloc.dart';
 
 import '../../domain/spending.dart';
-import 'spending_view_state.dart';
+import 'spendings_view_state.dart';
 
-class SpendingCubit extends Cubit<SpendingsViewState> {
-  SpendingCubit()
+class SpendingsCubit extends Cubit<SpendingsViewState> {
+  SpendingsCubit()
       : super(SpendingsViewState(spendings: List.empty(growable: true)));
 
   /// Add the spending to the current state.
