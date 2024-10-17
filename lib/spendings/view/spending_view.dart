@@ -16,7 +16,7 @@ class SpendingView extends StatelessWidget {
       body: Center(
         child: Column(children: <Widget>[
           Expanded(
-            child: BlocBuilder<SpendingCubit, SpendingViewState>(
+            child: BlocBuilder<SpendingCubit, SpendingsViewState>(
               builder: (context, state) {
                 return state.spendings.isEmpty
                     ? const Center(child: Text('Empty'))

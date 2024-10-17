@@ -1,7 +1,7 @@
-import '../../data/spending.dart';
+import '../../domain/spending.dart';
 
-class SpendingViewState {
+class SpendingsViewState {
   List<Spending> spendings;
 
-  SpendingViewState({required this.spendings});
+  SpendingsViewState({required this.spendings});
 }
