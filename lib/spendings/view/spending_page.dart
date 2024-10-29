@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gestion_finances/spendings/view/cubit/spendings_cubit.dart';
-import 'package:flutter_gestion_finances/spendings/view/spending_view.dart';
-
-import 'cubit/spending_input_cubit.dart';
+import '../bloc/spendings_bloc.dart';
+import 'spending_view.dart';
 
 class SpendingPage extends StatelessWidget {
   /// {@macro counter_page}
@@ -11,15 +9,8 @@ class SpendingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<SpendingsCubit>(
-          create: (context) => SpendingsCubit(),
-        ),
-        BlocProvider<SpendingInputCubit>(
-          create: (context) => SpendingInputCubit(),
-        ),
-      ],
+    return BlocProvider(
+      create: (_) => SpendingsBloc(),
       child: const SpendingView(),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gestion_finances/spendings/view/cubit/spending_input_cubit.dart';
-import 'package:flutter_gestion_finances/spendings/view/cubit/spending_input_view_state.dart';
+
+import '../bloc/spendings_bloc.dart';
 
 class SpendingCreateBar extends StatelessWidget {
   const SpendingCreateBar({super.key});
@@ -16,35 +16,32 @@ class SpendingCreateBar extends StatelessWidget {
       child: Row(
         children: [
           const SizedBox(width: 8),
-          Flexible(
+          const Flexible(
               flex: 6,
               child: TextField(
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Spending',
                 ),
-                onChanged: (value) =>
-                    context.read<SpendingInputCubit>().onNameChanged(value),
               )),
           const SizedBox(width: 8),
-          Flexible(
+          const Flexible(
               flex: 6,
               child: TextField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Value',
-                  ),
-                  keyboardType: TextInputType.number,
-                  onChanged: (value) => context
-                      .read<SpendingInputCubit>()
-                      .onValueChanged(int.parse(value)))),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Value',
+                ),
+                keyboardType: TextInputType.number,
+              )),
           //TODO variables de traduction
           const SizedBox(width: 8),
           Flexible(
               flex: 1,
               child: OutlinedButton(
-                onPressed: () =>
-                    context.read<SpendingInputCubit>().add(1, "test"),
+                onPressed: () => context
+                    .read<SpendingsBloc>()
+                    .add(const AddSpendingEvent(value: 1, name: "test")),
                 child: const Icon(Icons.add),
               )),
           const SizedBox(height: 8),
