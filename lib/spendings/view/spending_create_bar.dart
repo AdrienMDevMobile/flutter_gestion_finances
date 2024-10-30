@@ -80,9 +80,8 @@ class _AddButton extends StatelessWidget {
     return Flexible(
         flex: 1,
         child: OutlinedButton(
-          onPressed: () => context
-              .read<SpendingsBloc>()
-              .add(const AddSpendingEvent(value: 1, name: "test")),
+          onPressed: () =>
+              context.read<SpendingsBloc>().add(const AddSpendingEvent()),
           child: const Icon(Icons.add),
         ));
   }
