@@ -16,37 +16,74 @@ class SpendingCreateBar extends StatelessWidget {
       child: Row(
         children: [
           const SizedBox(width: 8),
-          const Flexible(
-              flex: 6,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Spending',
-                ),
-              )),
+          _ValueInput(),
           const SizedBox(width: 8),
-          const Flexible(
-              flex: 6,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Value',
-                ),
-                keyboardType: TextInputType.number,
-              )),
+          _NameInput(),
           //TODO variables de traduction
           const SizedBox(width: 8),
-          Flexible(
-              flex: 1,
-              child: OutlinedButton(
-                onPressed: () => context
-                    .read<SpendingsBloc>()
-                    .add(const AddSpendingEvent(value: 1, name: "test")),
-                child: const Icon(Icons.add),
-              )),
+          _AddButton(),
           const SizedBox(height: 8),
         ],
       ),
     );
+  }
+}
+
+class _NameInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    /*final displayError = context.select(
+      (LoginBloc bloc) => bloc.state.username.displayError,
+    );*/
+
+    return Flexible(
+        flex: 6,
+        child: TextField(
+          key: const Key('spendingForm_nameInput_textField'),
+          onChanged: (name) {
+            context.read<SpendingsBloc>().add(SpendingNameChanged(name: name));
+          },
+          decoration: const InputDecoration(
+            labelText: 'username',
+            errorText: 'Error' != null ? 'invalid username' : null,
+          ),
+        ));
+  }
+}
+
+class _ValueInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+        flex: 6,
+        child: TextField(
+          key: const Key('spendingForm_valueInput_textField'),
+          onChanged: (value) {
+            context
+                .read<SpendingsBloc>()
+                .add(SpendingValueChanged(value: int.parse(value)));
+          },
+          decoration: const InputDecoration(
+            labelText: 'value',
+            errorText: 'Error' != null ? 'invalid value' : null,
+          ),
+        ));
+  }
+  /*final displayError = context.select(
+      (LoginBloc bloc) => bloc.state.username.displayError,
+    );*/
+}
+
+class _AddButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+        flex: 1,
+        child: OutlinedButton(
+          onPressed: () => context
+              .read<SpendingsBloc>()
+              .add(const AddSpendingEvent(value: 1, name: "test")),
+          child: const Icon(Icons.add),
+        ));
   }
 }
