@@ -10,20 +10,25 @@ class SpendingCreateBar extends StatelessWidget {
 //TODO voir comment cela se gère avec le textEditController
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      color: Colors.blue,
-      child: Row(
-        children: [
-          const SizedBox(width: 8),
-          _ValueInput(),
-          const SizedBox(width: 8),
-          _NameInput(),
-          //TODO variables de traduction
-          const SizedBox(width: 8),
-          _AddButton(),
-          const SizedBox(height: 8),
-        ],
+    return BlocListener<SpendingsBloc, SpendingsState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      child: Container(
+        height: 100,
+        color: Colors.blue,
+        child: Row(
+          children: [
+            const SizedBox(width: 8),
+            _ValueInput(),
+            const SizedBox(width: 8),
+            _NameInput(),
+            //TODO variables de traduction
+            const SizedBox(width: 8),
+            _AddButton(),
+            const SizedBox(height: 8),
+          ],
+        ),
       ),
     );
   }
