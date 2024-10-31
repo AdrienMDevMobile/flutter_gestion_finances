@@ -12,16 +12,21 @@ final class SpendingsState extends Equatable {
   final Value value;
 
   @override
-  List<Object> get props => [spendings];
+  List<Object> get props => [spendings, name, value];
 
   SpendingsState copyWith({
     List<Spending>? spendings,
     Name? name,
     Value? value,
   }) {
+    print('micheldr a ${this.spendings} $spendings');
+    print('micheldr b ${this.name} $name');
+    print('micheldr c ${this.value} $value');
+
     return SpendingsState(
-        spendings: spendings ?? this.spendings,
-        name: name ?? this.name,
-        value: value ?? this.value);
+      spendings: spendings ?? this.spendings,
+      name: name ?? this.name,
+      value: value ?? this.value,
+    );
   }
 }

@@ -15,27 +15,31 @@ class SpendingsBloc extends Bloc<SpendingsEvent, SpendingsState> {
   }
 
   void _onAddSpending(AddSpendingEvent event, Emitter<SpendingsState> emit) {
-    print('micheldr _onAddSpending ${state.value.value} ${state.name.value}');
-    emit(state.copyWith(
+    final newState = state.copyWith(
         spendings: List.from(state.spendings, growable: true).cast<Spending>()
-          ..add(Spending(value: state.value.value, name: state.name.value))));
+          ..add(Spending(value: state.value.value, name: state.name.value)));
+    print(
+        'micheldr _onAddSpending ${newState.value.value} ${newState.name.value}');
+    emit(newState);
   }
 
   void _onSpendingNameChanged(
       SpendingNameChanged event, Emitter<SpendingsState> emit) {
     print('micheldr _onSpendingNameChanged ${event.name}');
     final name = Name.dirty(event.name);
+    final newState = state.copyWith(name: name);
     print(
-        'micheldr _onSpendingNameChanged 2 ${state.value.value} ${state.name.value}');
-    emit(state.copyWith(name: name));
+        'micheldr _onSpendingNameChanged ${newState.value.value} ${newState.name.value}');
+    emit(newState);
   }
 
   void _onSpendingValueChanged(
       SpendingValueChanged event, Emitter<SpendingsState> emit) {
     print('micheldr _onSpendingValueChanged ${event.value}');
     final value = Value.dirty(event.value);
+    final newState = state.copyWith(value: value);
     print(
-        'micheldr _onSpendingValueChanged 2 ${state.value.value} ${state.name.value}');
-    emit(state.copyWith(value: value));
+        'micheldr _onSpendingValueChanged ${newState.value.value} ${newState.name.value}');
+    emit(newState);
   }
 }
