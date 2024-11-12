@@ -66,7 +66,7 @@ class _ValueInput extends StatelessWidget {
           onChanged: (value) {
             context
                 .read<SpendingsBloc>()
-                .add(SpendingValueChanged(value: int.parse(value)));
+                .add(SpendingValueChanged(value: value));
           },
           decoration: const InputDecoration(
             labelText: 'value',

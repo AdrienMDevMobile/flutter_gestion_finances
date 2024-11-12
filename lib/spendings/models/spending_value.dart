@@ -1,14 +1,15 @@
 import 'package:formz/formz.dart';
 
-enum ValueValidationError { empty }
+enum ValueValidationError { empty, nonNumeric }
 
-class Value extends FormzInput<int, ValueValidationError> {
-  const Value.pure() : super.pure(0);
-  const Value.dirty([super.value = 0]) : super.dirty();
+class Value extends FormzInput<String, ValueValidationError> {
+  const Value.pure() : super.pure('');
+  const Value.dirty([super.value = '']) : super.dirty();
 
   @override
-  ValueValidationError? validator(int value) {
-    if (value == 0) return ValueValidationError.empty;
+  ValueValidationError? validator(String value) {
+    if (value == '') return ValueValidationError.empty;
+    if (int.tryParse(value) == null) return ValueValidationError.nonNumeric;
     return null;
   }
 }

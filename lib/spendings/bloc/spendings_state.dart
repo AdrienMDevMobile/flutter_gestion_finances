@@ -19,10 +19,6 @@ final class SpendingsState extends Equatable {
     Name? name,
     Value? value,
   }) {
-    print('micheldr a ${this.spendings} $spendings');
-    print('micheldr b ${this.name} $name');
-    print('micheldr c ${this.value} $value');
-
     return SpendingsState(
       spendings: spendings ?? this.spendings,
       name: name ?? this.name,

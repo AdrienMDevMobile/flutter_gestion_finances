@@ -16,5 +16,5 @@ final class SpendingNameChanged extends SpendingsEvent {
 
 final class SpendingValueChanged extends SpendingsEvent {
   const SpendingValueChanged({required this.value});
-  final int value;
+  final String value;
 }
