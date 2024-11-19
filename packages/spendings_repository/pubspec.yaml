@@ -1,6 +1,11 @@
 name: spending_repository
-description: Dart package which manages the spending domain.
+description: Dart package which manages the spending repository.
+version: 1.0.0+1
 publish_to: none
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  spendings_api:
+    path: ../spendings_api
