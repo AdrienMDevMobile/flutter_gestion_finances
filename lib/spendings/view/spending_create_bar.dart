@@ -50,7 +50,7 @@ class _NameInput extends StatelessWidget {
           },
           decoration: const InputDecoration(
             labelText: 'username',
-            errorText: 'Error' != null ? 'invalid username' : null,
+            errorText: 'Error',
           ),
         ));
   }
@@ -70,7 +70,7 @@ class _ValueInput extends StatelessWidget {
           },
           decoration: const InputDecoration(
             labelText: 'value',
-            errorText: 'Error' != null ? 'invalid value' : null,
+            errorText: 'Error',
           ),
         ));
   }
