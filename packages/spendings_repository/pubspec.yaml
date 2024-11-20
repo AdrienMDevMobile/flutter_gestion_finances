@@ -1,4 +1,4 @@
-name: spending_repository
+name: spendings_repository
 description: Dart package which manages the spending repository.
 version: 1.0.0+1
 publish_to: none

@@ -20,6 +20,14 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.1
   formz: ^0.6.0
+  shared_preferences: ^2.0.15
+  spendings_api_local_data:
+    path: packages/spendings_api_local_data
+  spendings_api:
+    path: packages/spendings_api
+  spendings_repository:
+    path: packages/spendings_repository
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -77,3 +85,4 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+

@@ -5,6 +5,10 @@ sealed class SpendingsEvent {
   const SpendingsEvent();
 }
 
+final class SpendingsSubscriptionRequested extends SpendingsEvent {
+  const SpendingsSubscriptionRequested();
+}
+
 final class AddSpendingEvent extends SpendingsEvent {
   const AddSpendingEvent();
 }

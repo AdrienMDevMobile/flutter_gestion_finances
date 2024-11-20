@@ -1,9 +1,12 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gestion_finances/app.dart';
-import 'package:flutter_gestion_finances/spending_observer.dart';
+import 'package:flutter_gestion_finances/bootstrap.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spendings_api_local_data/spendings_api_local_data.dart';
 
-void main() {
-  Bloc.observer = const SpendingObserver();
-  runApp(const SpendingApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final spendingsApi =
+      SpendingsApiLocalData(plugin: await SharedPreferences.getInstance());
+  bootstrap(spendingsApi: spendingsApi);
 }

@@ -41,3 +41,12 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+macos/Podfile
+macos/Podfile.lock
+ios/Podfile
+macos/Flutter/GeneratedPluginRegistrant.swift
+macos/Flutter/GeneratedPluginRegistrant.swift
+macos/Flutter/Flutter-Release.xcconfig
+macos/Flutter/Flutter-Debug.xcconfig
+macos/Runner.xcodeproj/project.pbxproj
+macos/Runner.xcworkspace/contents.xcworkspacedata
