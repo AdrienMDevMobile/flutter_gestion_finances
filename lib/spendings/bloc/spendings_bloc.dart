@@ -24,9 +24,14 @@ class SpendingsBloc extends Bloc<SpendingsEvent, SpendingsState> {
   Future<void> _onSpendingSubscriptionRequested(
       SpendingsSubscriptionRequested event,
       Emitter<SpendingsState> emit) async {
-    emit.forEach(_repository.getSpendings(),
-        onData: (spendings) => state.copyWith(
-            spendings: spendings.map((spending) => toView(spending)).toList()));
+    await emit.forEach(_repository.getSpendings(),
+        onData: (spendings) => _onSpendingsData(spendings));
+  }
+
+  SpendingsState _onSpendingsData(List<srepo.Spending> spendings) {
+    print("micheldr onData ${spendings.length}");
+    return state.copyWith(
+        spendings: spendings.map((spending) => toView(spending)).toList());
   }
 
 //Faut il que cela soit future<void> ?
@@ -38,6 +43,7 @@ class SpendingsBloc extends Bloc<SpendingsEvent, SpendingsState> {
     print(
         'micheldr _onAddSpending ${newState.value.value} ${newState.name.value}');
     emit(newState);*/
+    print("micheldr saving data");
     _repository.saveSpending(toData(
         Spending(value: int.parse(state.value.value), name: state.name.value)));
   }

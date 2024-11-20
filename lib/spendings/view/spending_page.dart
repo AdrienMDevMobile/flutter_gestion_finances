@@ -12,7 +12,8 @@ class SpendingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) =>
-          SpendingsBloc(repository: context.read<SpendingsRepository>()),
+          SpendingsBloc(repository: context.read<SpendingsRepository>())
+            ..add(const SpendingsSubscriptionRequested()),
       child: const SpendingView(),
     );
   }

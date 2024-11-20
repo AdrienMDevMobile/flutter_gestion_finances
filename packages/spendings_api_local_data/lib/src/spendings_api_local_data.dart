@@ -29,14 +29,17 @@ class SpendingsApiLocalData extends SpendingsApi {
   void _init() {
     final spendingsJson = _getValue(kSpendingsCollectionKey);
     if (spendingsJson != null) {
-      final todos = List<Map<dynamic, dynamic>>.from(
+      print("micheldr spendingJson is not null");
+      final spendings = List<Map<dynamic, dynamic>>.from(
         json.decode(spendingsJson) as List,
       )
           .map((jsonMap) =>
               Spending.fromJson(Map<String, dynamic>.from(jsonMap)))
           .toList();
-      _spendingStreamController.add(todos);
+      print("micheldr length ${spendings.length}");
+      _spendingStreamController.add(spendings);
     } else {
+      print("micheldr spendingJson is null");
       _spendingStreamController.add(const []);
     }
   }
@@ -47,6 +50,7 @@ class SpendingsApiLocalData extends SpendingsApi {
 
   @override
   Future<void> saveSpending(Spending spending) {
+    print("micheldr local data ${spending.name} ${spending.value}");
     final spendings = [..._spendingStreamController.value];
     spendings.add(spending);
     _spendingStreamController.add(spendings);

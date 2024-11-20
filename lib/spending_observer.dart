@@ -12,6 +12,6 @@ class SpendingObserver extends BlocObserver {
   void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
     super.onChange(bloc, change);
     // ignore: avoid_print
-    print('micheldr ${bloc.runtimeType} $change');
+    print('micheldr spendingObserver ${bloc.runtimeType} $change');
   }
 }
