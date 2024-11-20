@@ -34,15 +34,7 @@ class SpendingsBloc extends Bloc<SpendingsEvent, SpendingsState> {
         spendings: spendings.map((spending) => toView(spending)).toList());
   }
 
-//Faut il que cela soit future<void> ?
   void _onAddSpending(AddSpendingEvent event, Emitter<SpendingsState> emit) {
-    /*final newState = state.copyWith(
-        spendings: List.from(state.spendings, growable: true).cast<Spending>()
-          ..add(Spending(
-              value: int.parse(state.value.value), name: state.name.value)));
-    print(
-        'micheldr _onAddSpending ${newState.value.value} ${newState.name.value}');
-    emit(newState);*/
     print("micheldr saving data");
     _repository.saveSpending(toData(
         Spending(value: int.parse(state.value.value), name: state.name.value)));
