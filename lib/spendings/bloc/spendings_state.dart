@@ -26,6 +26,7 @@ final class SpendingsState extends Equatable {
       spendings: spendings ?? this.spendings,
       name: name ?? this.name,
       value: value ?? this.value,
+      date: date ?? this.date,
     );
   }
 }

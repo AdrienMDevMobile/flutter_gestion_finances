@@ -18,7 +18,7 @@ class SpendingsList extends StatelessWidget {
               : ListView.builder(
                   itemCount: state.spendings.length,
                   itemBuilder: (_, index) => Text(
-                      '${state.spendings[index].name} ${state.spendings[index].value}',
+                      '${state.spendings[index].date.day} ${state.spendings[index].name} ${state.spendings[index].value}',
                       style: textTheme.displayMedium));
         },
       ),

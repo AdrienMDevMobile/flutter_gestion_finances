@@ -38,8 +38,10 @@ class SpendingsBloc extends Bloc<SpendingsEvent, SpendingsState> {
 
   void _onAddSpending(AddSpendingEvent event, Emitter<SpendingsState> emit) {
     print("micheldr saving data");
-    _repository.saveSpending(toData(
-        Spending(value: int.parse(state.value.value), name: state.name.value)));
+    _repository.saveSpending(toData(Spending(
+        value: int.parse(state.value.value),
+        name: state.name.value,
+        date: DateTime.parse(state.date.value))));
   }
 
   void _onSpendingNameChanged(
