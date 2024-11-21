@@ -88,7 +88,6 @@ class _DateInput extends StatelessWidget {
         flex: 6,
         fit: FlexFit.tight,
         child: TextField(
-          //TODO comprendre
           key: const Key('spendingForm_dateInput_textField'),
           onChanged: (value) {
             context.read<SpendingsBloc>().add(SpendingDateChanged(date: value));

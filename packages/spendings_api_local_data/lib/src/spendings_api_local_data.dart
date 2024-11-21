@@ -20,7 +20,7 @@ class SpendingsApiLocalData extends SpendingsApi {
 
   @visibleForTesting
   static const kSpendingsCollectionKey =
-      '__micheldr_spendings_collection_key__';
+      '__micheldr_spendings_collection_date_key__';
 
   String? _getValue(String key) => _plugin.getString(key);
   Future<void> _setValue(String key, String value) =>
@@ -50,7 +50,8 @@ class SpendingsApiLocalData extends SpendingsApi {
 
   @override
   Future<void> saveSpending(Spending spending) {
-    print("micheldr local data ${spending.name} ${spending.value}");
+    print(
+        "micheldr local data ${spending.name} ${spending.value} ${spending.date}");
     final spendings = [..._spendingStreamController.value];
     spendings.add(spending);
     _spendingStreamController.add(spendings);
