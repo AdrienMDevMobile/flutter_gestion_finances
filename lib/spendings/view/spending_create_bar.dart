@@ -20,6 +20,8 @@ class SpendingCreateBar extends StatelessWidget {
         child: Row(
           children: [
             const SizedBox(width: 8),
+            _DateInput(),
+            const SizedBox(width: 8),
             _ValueInput(),
             const SizedBox(width: 8),
             _NameInput(),
@@ -77,6 +79,26 @@ class _ValueInput extends StatelessWidget {
   /*final displayError = context.select(
       (LoginBloc bloc) => bloc.state.username.displayError,
     );*/
+}
+
+class _DateInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+        flex: 6,
+        fit: FlexFit.tight,
+        child: TextField(
+          //TODO comprendre
+          key: const Key('spendingForm_dateInput_textField'),
+          onChanged: (value) {
+            context.read<SpendingsBloc>().add(SpendingDateChanged(date: value));
+          },
+          decoration: const InputDecoration(
+            labelText: 'date',
+            errorText: 'Error',
+          ),
+        ));
+  }
 }
 
 class _AddButton extends StatelessWidget {

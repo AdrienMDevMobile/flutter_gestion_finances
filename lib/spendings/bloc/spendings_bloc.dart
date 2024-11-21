@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gestion_finances/spendings/models/translater_ext.dart';
 import 'package:spendings_repository/spendings_repository.dart' as srepo;
 import '../models/models.dart';
+import '../models/spending_date.dart';
 
 part 'spendings_event.dart';
 part 'spendings_state.dart';
@@ -17,6 +18,7 @@ class SpendingsBloc extends Bloc<SpendingsEvent, SpendingsState> {
     on<AddSpendingEvent>(_onAddSpending);
     on<SpendingNameChanged>(_onSpendingNameChanged);
     on<SpendingValueChanged>(_onSpendingValueChanged);
+    on<SpendingDateChanged>(_onSpendingDateChanged);
   }
 
   final srepo.SpendingsRepository _repository;
@@ -54,6 +56,13 @@ class SpendingsBloc extends Bloc<SpendingsEvent, SpendingsState> {
       SpendingValueChanged event, Emitter<SpendingsState> emit) {
     final value = Value.dirty(event.value);
     final newState = state.copyWith(value: value);
+    emit(newState);
+  }
+
+  void _onSpendingDateChanged(
+      SpendingDateChanged event, Emitter<SpendingsState> emit) {
+    final date = Date.dirty(event.date);
+    final newState = state.copyWith(date: date);
     emit(newState);
   }
 }

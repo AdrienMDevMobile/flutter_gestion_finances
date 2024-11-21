@@ -22,3 +22,8 @@ final class SpendingValueChanged extends SpendingsEvent {
   const SpendingValueChanged({required this.value});
   final String value;
 }
+
+final class SpendingDateChanged extends SpendingsEvent {
+  const SpendingDateChanged({required this.date});
+  final String date;
+}
