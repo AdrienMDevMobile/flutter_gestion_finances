@@ -9,7 +9,10 @@ class SpendingsRepository {
 
   final SpendingsApi _spendingsApi;
 
-  Stream<List<Spending>> getSpendings() => _spendingsApi.getSpendings();
+  Stream<Spendings> getSpendings() => _spendingsApi.getSpendings();
+
+  void changeTimeViewed(SpendingTimeViewed timeViewed) =>
+      _spendingsApi.changeTimeViewed(timeViewed);
 
   Future<void> saveSpending(Spending spending) =>
       _spendingsApi.saveSpending(spending);

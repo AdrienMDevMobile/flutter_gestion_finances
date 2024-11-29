@@ -2,10 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gestion_finances/spendings/models/translater_ext.dart';
+import 'package:spendings_api/spendings_api.dart' show Spendings;
 import 'package:spendings_repository/spendings_repository.dart' as srepo;
 import '../models/models.dart';
 import '../models/spending_date.dart';
-
 part 'spendings_event.dart';
 part 'spendings_state.dart';
 
@@ -30,10 +30,11 @@ class SpendingsBloc extends Bloc<SpendingsEvent, SpendingsState> {
         onData: (spendings) => _onSpendingsData(spendings));
   }
 
-  SpendingsState _onSpendingsData(List<srepo.Spending> spendings) {
-    print("micheldr onData ${spendings.length}");
+  SpendingsState _onSpendingsData(Spendings spendings) {
+    print("micheldr onData ${spendings.spendings.length}");
     return state.copyWith(
-        spendings: spendings.map((spending) => toView(spending)).toList());
+        spendings:
+            spendings.spendings.map((spending) => toView(spending)).toList());
   }
 
   void _onAddSpending(AddSpendingEvent event, Emitter<SpendingsState> emit) {
