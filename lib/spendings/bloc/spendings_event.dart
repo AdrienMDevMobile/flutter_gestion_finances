@@ -9,6 +9,11 @@ final class SpendingsSubscriptionRequested extends SpendingsEvent {
   const SpendingsSubscriptionRequested();
 }
 
+final class TimeViewedChanged extends SpendingsEvent {
+  const TimeViewedChanged({required this.difference});
+  final int difference;
+}
+
 final class AddSpendingEvent extends SpendingsEvent {
   const AddSpendingEvent();
 }

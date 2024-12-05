@@ -2,7 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gestion_finances/spendings/models/translater_ext.dart';
-import 'package:spendings_api/spendings_api.dart' show Spendings;
+import 'package:spendings_api/spendings_api.dart'
+    show SpendingTimeViewed, Spendings;
 import 'package:spendings_repository/spendings_repository.dart' as srepo;
 import '../models/models.dart';
 import '../models/spending_date.dart';
@@ -15,6 +16,7 @@ class SpendingsBloc extends Bloc<SpendingsEvent, SpendingsState> {
   })  : _repository = repository,
         super(const SpendingsState()) {
     on<SpendingsSubscriptionRequested>(_onSpendingSubscriptionRequested);
+    on<TimeViewedChanged>(_onTimeViewedChanged);
     on<AddSpendingEvent>(_onAddSpending);
     on<SpendingNameChanged>(_onSpendingNameChanged);
     on<SpendingValueChanged>(_onSpendingValueChanged);
@@ -35,6 +37,22 @@ class SpendingsBloc extends Bloc<SpendingsEvent, SpendingsState> {
     return state.copyWith(
         spendings:
             spendings.spendings.map((spending) => toView(spending)).toList());
+  }
+
+  void _onTimeViewedChanged(
+      TimeViewedChanged event, Emitter<SpendingsState> emit) {
+    int newMonth = state.monthViewed;
+    int newYear = state.yearViewed;
+    if (event.difference > 0) {
+      newMonth = state.monthViewed + event.difference % 12;
+      newYear = state.monthViewed + event.difference % 12;
+    } else if (event.difference < 0) {
+      newMonth = state.monthViewed - event.difference % 12;
+      newYear = state.monthViewed + event.difference % 12;
+    }
+    print("micheldr $newMonth $newYear");
+    _repository
+        .changeTimeViewed(SpendingTimeViewed(month: newMonth, year: newYear));
   }
 
   void _onAddSpending(AddSpendingEvent event, Emitter<SpendingsState> emit) {
