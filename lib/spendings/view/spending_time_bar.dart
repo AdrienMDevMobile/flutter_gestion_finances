@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../spendings.dart';
 
 class SpendingTimeBar extends StatelessWidget {
   const SpendingTimeBar({super.key});
@@ -7,23 +10,23 @@ class SpendingTimeBar extends StatelessWidget {
 //TODO voir comment cela se gère avec le textEditController
   @override
   Widget build(BuildContext context) {
-    return /*BlocListener<SpendingsBloc, SpendingsState>(
+    return BlocListener<SpendingsBloc, SpendingsState>(
       listener: (context, state) {
         // TODO: implement listener
       },
-      child: */
-        Container(
-      height: 50,
-      color: const Color.fromARGB(255, 88, 12, 6),
-      child: Row(
-        children: [
-          _BackwardTimeArrow(),
-          //TODO variables de traduction
-          const SizedBox(width: 8),
-          _SpendingsTotalAmountProgressBar(),
-          const SizedBox(height: 8),
-          _ForwardTimeArrow(),
-        ],
+      child: Container(
+        height: 50,
+        color: const Color.fromARGB(255, 88, 12, 6),
+        child: Row(
+          children: [
+            _BackwardTimeArrow(),
+            //TODO variables de traduction
+            const SizedBox(width: 8),
+            _SpendingsTotalAmountProgressBar(),
+            const SizedBox(height: 8),
+            _ForwardTimeArrow(),
+          ],
+        ),
       ),
     );
     //);
@@ -36,7 +39,9 @@ class _BackwardTimeArrow extends StatelessWidget {
     return Flexible(
         flex: 1,
         child: OutlinedButton(
-          onPressed: () => print("micheldr backward"),
+          onPressed: () => context
+              .read<SpendingsBloc>()
+              .add(const TimeViewedChanged(difference: -1)),
           child: const Icon(Icons.arrow_back_sharp),
         ));
   }
@@ -48,7 +53,9 @@ class _ForwardTimeArrow extends StatelessWidget {
     return Flexible(
         flex: 1,
         child: OutlinedButton(
-          onPressed: () => print("micheldr forward"),
+          onPressed: () => context
+              .read<SpendingsBloc>()
+              .add(const TimeViewedChanged(difference: 1)),
           child: const Icon(Icons.arrow_forward_sharp),
         ));
   }

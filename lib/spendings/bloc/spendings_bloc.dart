@@ -33,24 +33,29 @@ class SpendingsBloc extends Bloc<SpendingsEvent, SpendingsState> {
   }
 
   SpendingsState _onSpendingsData(Spendings spendings) {
-    print("micheldr onData ${spendings.spendings.length}");
+    print(
+        "micheldr onData ${spendings.spendings.length} ${spendings.timeViewed.month} ${spendings.timeViewed.year}");
     return state.copyWith(
-        spendings:
-            spendings.spendings.map((spending) => toView(spending)).toList());
+      spendings:
+          spendings.spendings.map((spending) => toView(spending)).toList(),
+      monthViewed: spendings.timeViewed.month,
+      yearViewed: spendings.timeViewed.year,
+    );
   }
 
   void _onTimeViewedChanged(
       TimeViewedChanged event, Emitter<SpendingsState> emit) {
     int newMonth = state.monthViewed;
     int newYear = state.yearViewed;
-    if (event.difference > 0) {
-      newMonth = state.monthViewed + event.difference % 12;
-      newYear = state.monthViewed + event.difference % 12;
-    } else if (event.difference < 0) {
-      newMonth = state.monthViewed - event.difference % 12;
-      newYear = state.monthViewed + event.difference % 12;
-    }
-    print("micheldr $newMonth $newYear");
+
+    print(
+        "micheldr timeviewedchange ${event.difference} ${newMonth} ${newYear}");
+
+    newMonth = ((state.monthViewed - 1 + event.difference) % 12) + 1;
+    newYear = state.yearViewed +
+        ((state.monthViewed - 1 + event.difference) / 12).floor();
+
+    print("micheldr difference $newMonth $newYear");
     _repository
         .changeTimeViewed(SpendingTimeViewed(month: newMonth, year: newYear));
   }

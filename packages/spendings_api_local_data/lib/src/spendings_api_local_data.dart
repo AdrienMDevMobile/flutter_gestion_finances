@@ -35,8 +35,12 @@ class SpendingsApiLocalData extends SpendingsApi {
       _plugin.setString(key, value);
 
   void _init() {
-    final spendingTimeViewed = SpendingTimeViewed(
-        month: DateTime.now().month, year: DateTime.now().year);
+    _getTimeViewed(DateTime.now().month, DateTime.now().year);
+  }
+
+  void _getTimeViewed(int month, int year) {
+    print("micheldr _getTimeViewed ${month} ${year}");
+    final spendingTimeViewed = SpendingTimeViewed(month: month, year: year);
 
     _spendingStreamController.add(_getSpendingsFromJson(spendingTimeViewed));
   }
@@ -84,7 +88,7 @@ class SpendingsApiLocalData extends SpendingsApi {
 
   @override
   void changeTimeViewed(SpendingTimeViewed timeView) {
-    return;
+    _getTimeViewed(timeView.month, timeView.year);
   }
 
   @override
