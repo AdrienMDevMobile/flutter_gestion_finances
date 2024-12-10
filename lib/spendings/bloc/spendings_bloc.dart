@@ -35,12 +35,13 @@ class SpendingsBloc extends Bloc<SpendingsEvent, SpendingsState> {
   SpendingsState _onSpendingsData(Spendings spendings) {
     print(
         "micheldr onData ${spendings.spendings.length} ${spendings.timeViewed.month} ${spendings.timeViewed.year}");
+    List<Spending> viewSpendings =
+        spendings.spendings.map((spending) => toView(spending)).toList();
     return state.copyWith(
-      spendings:
-          spendings.spendings.map((spending) => toView(spending)).toList(),
-      monthViewed: spendings.timeViewed.month,
-      yearViewed: spendings.timeViewed.year,
-    );
+        spendings: viewSpendings,
+        monthViewed: spendings.timeViewed.month,
+        yearViewed: spendings.timeViewed.year,
+        totalSpent: getTotalSpent(viewSpendings));
   }
 
   void _onTimeViewedChanged(
@@ -90,5 +91,13 @@ class SpendingsBloc extends Bloc<SpendingsEvent, SpendingsState> {
     final date = Date.dirty(event.date);
     final newState = state.copyWith(date: date);
     emit(newState);
+  }
+
+  int getTotalSpent(List<Spending> spendings) {
+    int toReturn = 0;
+    spendings.forEach((spending) {
+      toReturn += spending.value;
+    });
+    return toReturn;
   }
 }

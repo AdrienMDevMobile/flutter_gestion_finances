@@ -9,6 +9,7 @@ final class SpendingsState extends Equatable {
     this.date = const Date.pure(),
     this.yearViewed = 0,
     this.monthViewed = 0,
+    this.totalSpent = 0,
   });
 
   final List<Spending> spendings;
@@ -17,6 +18,7 @@ final class SpendingsState extends Equatable {
   final Date date;
   final int yearViewed;
   final int monthViewed;
+  final int totalSpent;
 
   @override
   List<Object> get props =>
@@ -28,13 +30,15 @@ final class SpendingsState extends Equatable {
       Value? value,
       Date? date,
       int? yearViewed,
-      int? monthViewed}) {
+      int? monthViewed,
+      int? totalSpent}) {
     return SpendingsState(
         spendings: spendings ?? this.spendings,
         name: name ?? this.name,
         value: value ?? this.value,
         date: date ?? this.date,
         yearViewed: yearViewed ?? this.yearViewed,
-        monthViewed: monthViewed ?? this.monthViewed);
+        monthViewed: monthViewed ?? this.monthViewed,
+        totalSpent: totalSpent ?? this.totalSpent);
   }
 }

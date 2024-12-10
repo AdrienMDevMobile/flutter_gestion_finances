@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 import '../spendings.dart';
 
@@ -12,7 +15,7 @@ class SpendingTimeBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<SpendingsBloc, SpendingsState>(
       listener: (context, state) {
-        // TODO: implement listener
+        // TODO: implement listener : animation pour la barre de progression
       },
       child: Container(
         height: 50,
@@ -64,6 +67,20 @@ class _ForwardTimeArrow extends StatelessWidget {
 class _SpendingsTotalAmountProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final centerText = context.select(
+      (SpendingsBloc bloc) =>
+          "${DateFormat.MMMM().format(DateTime(bloc.state.yearViewed, bloc.state.monthViewed))} ${bloc.state.yearViewed} : ${bloc.state.totalSpent}",
+    );
+
+    double progressBarFilledPercentage = context.select(
+      (SpendingsBloc bloc) => bloc.state.totalSpent / 100,
+    );
+    if (progressBarFilledPercentage > 1) {
+      progressBarFilledPercentage = 1;
+    } else if (progressBarFilledPercentage < 0) {
+      progressBarFilledPercentage = 0;
+    }
+
     return Flexible(
       flex: 10,
       fit: FlexFit.tight,
@@ -79,20 +96,19 @@ class _SpendingsTotalAmountProgressBar extends StatelessWidget {
         height: 40.0,
         //A l'intérieur nous mettons un progress bar qui sera fill par la quantité voulue
         child: Stack(
-          alignment: Alignment.centerLeft,
+          alignment: Alignment.center,
           children: [
             Positioned.fill(
               child: LinearProgressIndicator(
                 //Mettre la valeur du total des dépenses en pourcentage. Le bloc doit présenter le floater. et l'arreter à 100 si > 100
-                value: 0.7,
+                value: progressBarFilledPercentage,
                 color: Colors.blue.withAlpha(100),
                 backgroundColor: Colors.blue.withAlpha(50),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
-              //TODO mettre : nom du mois, espace, le total des dépenses
-              child: Text('Hello world'),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text(centerText),
             )
           ],
         ),
