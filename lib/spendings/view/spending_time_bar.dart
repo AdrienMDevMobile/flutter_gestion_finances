@@ -45,6 +45,7 @@ class _BackwardTimeArrow extends StatelessWidget {
           onPressed: () => context
               .read<SpendingsBloc>()
               .add(const TimeViewedChanged(difference: -1)),
+          clipBehavior: Clip.antiAlias,
           child: const Icon(Icons.arrow_back_sharp),
         ));
   }
@@ -59,6 +60,7 @@ class _ForwardTimeArrow extends StatelessWidget {
           onPressed: () => context
               .read<SpendingsBloc>()
               .add(const TimeViewedChanged(difference: 1)),
+          clipBehavior: Clip.antiAlias,
           child: const Icon(Icons.arrow_forward_sharp),
         ));
   }
