@@ -1,4 +1,3 @@
-import 'package:flex_list/flex_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

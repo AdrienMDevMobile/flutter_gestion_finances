@@ -39,9 +39,9 @@ class SpendingsApiLocalData extends SpendingsApi {
   }
 
   void _getTimeViewed(int month, int year) {
-    final spendingTimeViewed = SpendingTimeViewed(month: month, year: year);
+    _currentTimeViewed = SpendingTimeViewed(month: month, year: year);
 
-    _spendingStreamController.add(_getSpendingsFromJson(spendingTimeViewed));
+    _spendingStreamController.add(_getSpendingsFromJson(_currentTimeViewed));
   }
 
   Spendings _getSpendingsFromJson(SpendingTimeViewed timeViewed) => Spendings(
