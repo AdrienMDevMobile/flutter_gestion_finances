@@ -23,7 +23,6 @@ class SpendingTimeBar extends StatelessWidget {
         child: Row(
           children: [
             _BackwardTimeArrow(),
-            //TODO variables de traduction
             const SizedBox(width: 8),
             _SpendingsTotalAmountProgressBar(),
             const SizedBox(height: 8),
@@ -90,7 +89,7 @@ class _SpendingsTotalAmountProgressBar extends StatelessWidget {
       child: Container(
         clipBehavior: Clip.hardEdge,
         //Marge : uniquement horizontale
-        margin: const EdgeInsets.symmetric(horizontal: 20.0),
+        margin: const EdgeInsetsDirectional.symmetric(horizontal: 20.0),
         //Effet arrondi
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
@@ -109,7 +108,7 @@ class _SpendingsTotalAmountProgressBar extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              padding: const EdgeInsetsDirectional.symmetric(horizontal: 10.0),
               child: Text(centerText),
             )
           ],

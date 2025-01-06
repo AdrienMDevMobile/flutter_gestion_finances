@@ -49,20 +49,15 @@ class SpendingsBloc extends Bloc<SpendingsEvent, SpendingsState> {
     int newMonth = state.monthViewed;
     int newYear = state.yearViewed;
 
-    print(
-        "micheldr timeviewedchange ${event.difference} ${newMonth} ${newYear}");
-
     newMonth = ((state.monthViewed - 1 + event.difference) % 12) + 1;
     newYear = state.yearViewed +
         ((state.monthViewed - 1 + event.difference) / 12).floor();
 
-    print("micheldr difference $newMonth $newYear");
     _repository
         .changeTimeViewed(SpendingTimeViewed(month: newMonth, year: newYear));
   }
 
   void _onAddSpending(AddSpendingEvent event, Emitter<SpendingsState> emit) {
-    print("micheldr saving data");
     _repository.saveSpending(toData(Spending(
         value: int.parse(state.value.value),
         name: state.name.value,
@@ -71,11 +66,8 @@ class SpendingsBloc extends Bloc<SpendingsEvent, SpendingsState> {
 
   void _onSpendingNameChanged(
       SpendingNameChanged event, Emitter<SpendingsState> emit) {
-    print('micheldr _onSpendingNameChanged ${event.name}');
     final name = Name.dirty(event.name);
     final newState = state.copyWith(name: name);
-    print(
-        'micheldr _onSpendingNameChanged ${newState.value.value} ${newState.name.value}');
     emit(newState);
   }
 

@@ -18,7 +18,7 @@ class SpendingCreateBar extends StatelessWidget {
       child: Container(
         color: Colors.blue,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 10),
           child: OverflowBar(
             alignment: MainAxisAlignment.spaceBetween,
             spacing: 10,

@@ -8,18 +8,12 @@ import 'package:spendings_api/spendings_api.dart';
 
 //TODO SharedPreferences est déprécié, utiliser SharedPreferencesAsync o SharedPreferencesWithCache
 class SpendingsApiLocalData extends SpendingsApi {
-  SpendingsApiLocalData({
-    required SharedPreferences plugin,
-  }) : _plugin = plugin {
-    _init();
-  }
-
   //TODO : changer et utiliser _currentTimeViewed dans les autres fonctions
 
   late SpendingTimeViewed _currentTimeViewed = SpendingTimeViewed(
       month: DateTime.now().month, year: DateTime.now().year);
 
-  final SharedPreferences _plugin;
+  late final SharedPreferencesWithCache _plugin;
   late final _spendingStreamController =
       BehaviorSubject<Spendings>.seeded(Spendings(
     timeViewed: _currentTimeViewed,
@@ -34,12 +28,17 @@ class SpendingsApiLocalData extends SpendingsApi {
   Future<void> _setValue(String key, String value) =>
       _plugin.setString(key, value);
 
-  void _init() {
+  Future<void> init() async {
+    _plugin = await SharedPreferencesWithCache.create(
+        cacheOptions: const SharedPreferencesWithCacheOptions(
+            allowList: <String>{
+          SpendingsApiLocalData.kSpendingsCollectionKey
+        }));
+
     _getTimeViewed(DateTime.now().month, DateTime.now().year);
   }
 
   void _getTimeViewed(int month, int year) {
-    print("micheldr _getTimeViewed ${month} ${year}");
     final spendingTimeViewed = SpendingTimeViewed(month: month, year: year);
 
     _spendingStreamController.add(_getSpendingsFromJson(spendingTimeViewed));

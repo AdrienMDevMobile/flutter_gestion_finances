@@ -6,7 +6,8 @@ import 'package:spendings_api_local_data/spendings_api_local_data.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final spendingsApi =
-      SpendingsApiLocalData(plugin: await SharedPreferences.getInstance());
+  final spendingsApi = SpendingsApiLocalData();
+  await spendingsApi.init();
+
   bootstrap(spendingsApi: spendingsApi);
 }

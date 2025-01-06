@@ -18,9 +18,7 @@ class Spending extends Equatable {
   @override
   List<Object?> get props => [value, name, date];
 
-  /// Deserializes the given [JsonMap] into a [Todo].
   static Spending fromJson(JsonMap json) => _$SpendingFromJson(json);
 
-  /// Converts this [Todo] into a [JsonMap].
   JsonMap toJson() => _$SpendingToJson(this);
 }
