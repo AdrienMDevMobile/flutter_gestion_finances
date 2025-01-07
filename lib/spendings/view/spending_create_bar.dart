@@ -1,36 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gestion_finances/spendings/models/spending_date.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../bloc/spendings_bloc.dart';
 
 class SpendingCreateBar extends StatelessWidget {
   const SpendingCreateBar({super.key});
 
-//TODO wrapper cela dans un BlocConstructor et faire que l'information affiché dans les textbox soit géré par le Cubit.
-//TODO voir comment cela se gère avec le textEditController
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SpendingsBloc, SpendingsState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      child: Container(
-        color: Colors.blue,
-        child: Container(
-          padding: const EdgeInsetsDirectional.symmetric(horizontal: 10),
-          child: OverflowBar(
-            alignment: MainAxisAlignment.spaceBetween,
-            spacing: 10,
-            overflowAlignment: OverflowBarAlignment.center,
-            children: [
-              _DateInput(),
-              _ValueInput(),
-              _NameInput(),
-              _AddButton(),
-            ],
+    return BlocBuilder<SpendingsBloc, SpendingsState>(
+      builder: (context, state) {
+        return Container(
+          color: Colors.blue,
+          child: Container(
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: 10),
+            child: OverflowBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              spacing: 10,
+              overflowAlignment: OverflowBarAlignment.center,
+              children: [
+                _DateInput(),
+                _ValueInput(),
+                _NameInput(),
+                _AddButton(),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -38,9 +37,9 @@ class SpendingCreateBar extends StatelessWidget {
 class _NameInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    /*final displayError = context.select(
-      (LoginBloc bloc) => bloc.state.username.displayError,
-    );*/
+    final displayError = context.select(
+      (SpendingsBloc bloc) => bloc.state.name.displayError,
+    );
 
     return SizedBox(
       width: 200,
@@ -49,9 +48,11 @@ class _NameInput extends StatelessWidget {
         onChanged: (name) {
           context.read<SpendingsBloc>().add(SpendingNameChanged(name: name));
         },
-        decoration: const InputDecoration(
-          labelText: 'username',
-          errorText: 'Error',
+        decoration: InputDecoration(
+          labelText: AppLocalizations.of(context)!.label_name,
+          errorText: displayError != null
+              ? AppLocalizations.of(context)!.error_empty_name
+              : null,
         ),
       ),
     );
@@ -61,6 +62,9 @@ class _NameInput extends StatelessWidget {
 class _ValueInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final displayError = context.select(
+      (SpendingsBloc bloc) => bloc.state.value.displayError,
+    );
     return SizedBox(
       width: 200,
       child: TextField(
@@ -68,21 +72,33 @@ class _ValueInput extends StatelessWidget {
         onChanged: (value) {
           context.read<SpendingsBloc>().add(SpendingValueChanged(value: value));
         },
-        decoration: const InputDecoration(
-          labelText: 'value',
-          errorText: 'Error',
+        decoration: InputDecoration(
+          labelText: AppLocalizations.of(context)!.label_value,
+          errorText: displayError != null
+              ? AppLocalizations.of(context)!.error_empty_value
+              : null,
         ),
       ),
     );
   }
-  /*final displayError = context.select(
-      (LoginBloc bloc) => bloc.state.username.displayError,
-    );*/
 }
 
 class _DateInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final displayError = context.select(
+      (SpendingsBloc bloc) => bloc.state.date.displayError,
+    );
+
+    String? errorText;
+    if (displayError != null) {
+      if (displayError == DateValidationError.empty) {
+        errorText = AppLocalizations.of(context)!.error_empty_date;
+      } else if (displayError == DateValidationError.format) {
+        errorText = AppLocalizations.of(context)!.error_invalide_date_format;
+      }
+    }
+
     return SizedBox(
       width: 200,
       child: TextField(
@@ -90,9 +106,9 @@ class _DateInput extends StatelessWidget {
         onChanged: (date) {
           context.read<SpendingsBloc>().add(SpendingDateChanged(date: date));
         },
-        decoration: const InputDecoration(
-          labelText: 'date',
-          errorText: 'Error',
+        decoration: InputDecoration(
+          labelText: AppLocalizations.of(context)!.label_date,
+          errorText: errorText,
         ),
       ),
     );

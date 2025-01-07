@@ -6,10 +6,7 @@ import 'package:rxdart/subjects.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spendings_api/spendings_api.dart';
 
-//TODO SharedPreferences est déprécié, utiliser SharedPreferencesAsync o SharedPreferencesWithCache
 class SpendingsApiLocalData extends SpendingsApi {
-  //TODO : changer et utiliser _currentTimeViewed dans les autres fonctions
-
   late SpendingTimeViewed _currentTimeViewed = SpendingTimeViewed(
       month: DateTime.now().month, year: DateTime.now().year);
 
@@ -86,14 +83,12 @@ class SpendingsApiLocalData extends SpendingsApi {
       _spendingStreamController.asBroadcastStream();
 
   @override
-  void changeTimeViewed(SpendingTimeViewed timeView) {
-    _getTimeViewed(timeView.month, timeView.year);
+  void changeTimeViewed(SpendingTimeViewed timeViewed) {
+    _getTimeViewed(timeViewed.month, timeViewed.year);
   }
 
   @override
   Future<void> saveSpending(Spending spending) {
-    print(
-        "micheldr local data ${spending.name} ${spending.value} ${spending.date}");
     final allSpendings = _getAllSpendingsFromJson(true);
     allSpendings.add(spending);
 

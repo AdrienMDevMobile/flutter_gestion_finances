@@ -9,7 +9,7 @@ class Date extends FormzInput<String, DateValidationError> {
   @override
   DateValidationError? validator(String value) {
     if (value.isEmpty) return DateValidationError.empty;
-    if (DateTime.tryParse(value) == null) return DateValidationError.empty;
+    if (DateTime.tryParse(value) == null) return DateValidationError.format;
     return null;
   }
 }

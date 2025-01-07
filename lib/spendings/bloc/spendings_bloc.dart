@@ -33,8 +33,6 @@ class SpendingsBloc extends Bloc<SpendingsEvent, SpendingsState> {
   }
 
   SpendingsState _onSpendingsData(Spendings spendings) {
-    print(
-        "micheldr onData ${spendings.spendings.length} ${spendings.timeViewed.month} ${spendings.timeViewed.year}");
     List<Spending> viewSpendings =
         spendings.spendings.map((spending) => toView(spending)).toList();
     return state.copyWith(
@@ -87,9 +85,9 @@ class SpendingsBloc extends Bloc<SpendingsEvent, SpendingsState> {
 
   int getTotalSpent(List<Spending> spendings) {
     int toReturn = 0;
-    spendings.forEach((spending) {
+    for (var spending in spendings) {
       toReturn += spending.value;
-    });
+    }
     return toReturn;
   }
 }
