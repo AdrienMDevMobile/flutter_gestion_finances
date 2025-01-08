@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'spendings/spendings.dart';
 import 'package:spendings_repository/spendings_repository.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// {@template counter_app}
 /// A [MaterialApp] which sets the `home` to [SpendingPage].
@@ -28,6 +29,8 @@ class AppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: SpendingPage(),
     );
   }

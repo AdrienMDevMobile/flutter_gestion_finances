@@ -1,0 +1,9 @@
+{
+    "error_invalide_date_format": "Veuillez utiliser le format AAAA-MM-JJ",
+    "error_empty_date": "Date vide",
+    "error_empty_name": "Nom vide",
+    "error_empty_value": "Valeur vide",
+    "label_date": "Date",
+    "label_name" : "Nom",
+    "label_value": "Valeur"
+}

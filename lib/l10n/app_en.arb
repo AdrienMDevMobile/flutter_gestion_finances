@@ -1,0 +1,9 @@
+{
+    "error_invalide_date_format": "Please use the YYYY-MM-DD format",
+    "error_empty_date": "Empty date",
+    "error_empty_name": "Empty name",
+    "error_empty_value": "Empty value",
+    "label_date": "Date",
+    "label_name" : "Name",
+    "label_value": "Value"
+}

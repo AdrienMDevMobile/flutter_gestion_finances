@@ -1,32 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../spendings.dart';
 
 class SpendingTimeBar extends StatelessWidget {
   const SpendingTimeBar({super.key});
 
-//TODO wrapper cela dans un BlocConstructor et faire que l'information affiché dans les textbox soit géré par le Cubit.
-//TODO voir comment cela se gère avec le textEditController
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SpendingsBloc, SpendingsState>(
-      listener: (context, state) {
-        // TODO: implement listener : animation pour la barre de progression
-      },
-      child: Container(
-        height: 50,
-        color: const Color.fromARGB(255, 88, 12, 6),
-        child: Row(
-          children: [
-            _BackwardTimeArrow(),
-            const SizedBox(width: 8),
-            _SpendingsTotalAmountProgressBar(),
-            const SizedBox(height: 8),
-            _ForwardTimeArrow(),
-          ],
-        ),
+    return Container(
+      height: 50,
+      color: const Color.fromARGB(255, 88, 12, 6),
+      child: Row(
+        children: [
+          _BackwardTimeArrow(),
+          const SizedBox(width: 8),
+          _SpendingsTotalAmountProgressBar(),
+          const SizedBox(height: 8),
+          _ForwardTimeArrow(),
+        ],
       ),
     );
     //);
@@ -68,7 +62,7 @@ class _SpendingsTotalAmountProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final centerText = context.select(
       (SpendingsBloc bloc) =>
-          "${DateFormat.MMMM().format(DateTime(bloc.state.yearViewed, bloc.state.monthViewed))} ${bloc.state.yearViewed} : ${bloc.state.totalSpent}",
+          "${DateFormat.MMMM(Localizations.localeOf(context).languageCode).format(DateTime(bloc.state.yearViewed, bloc.state.monthViewed))} ${bloc.state.yearViewed} : ${bloc.state.totalSpent}",
     );
 
     double progressBarFilledPercentage = context.select(
@@ -98,11 +92,19 @@ class _SpendingsTotalAmountProgressBar extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Positioned.fill(
-              child: LinearProgressIndicator(
-                //Mettre la valeur du total des dépenses en pourcentage. Le bloc doit présenter le floater. et l'arreter à 100 si > 100
-                value: progressBarFilledPercentage,
-                color: Colors.blue.withAlpha(100),
-                backgroundColor: Colors.blue.withAlpha(50),
+              child: TweenAnimationBuilder<double>(
+                duration: const Duration(milliseconds: 250),
+                curve: Curves.easeInOut,
+                tween: Tween<double>(
+                  begin: 0,
+                  end: progressBarFilledPercentage,
+                ),
+                builder: (context, value, _) => LinearProgressIndicator(
+                  //Mettre la valeur du total des dépenses en pourcentage. Le bloc doit présenter le floater. et l'arreter à 100 si > 100
+                  value: value,
+                  color: Colors.blue.withAlpha(100),
+                  backgroundColor: Colors.blue.withAlpha(50),
+                ),
               ),
             ),
             Padding(
